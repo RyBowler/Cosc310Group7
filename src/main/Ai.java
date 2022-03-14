@@ -18,6 +18,11 @@ public class Ai {
             	"food",
 			"meal",
             };
+  	
+  	private String[] delivery={
+        	"package",
+		"delivery",
+        };
   
   	private String[] gratitude={
             	"thank",
@@ -40,7 +45,7 @@ public class Ai {
 
 	
 	public Ai() {   
-      	data=new String[10];
+      	data=new String[11];
         
 		// DATA  of the order
         	data[0]="Muhammad McLovin";//drivers name
@@ -53,6 +58,7 @@ public class Ai {
         	data[7]="3192 Lower Residence Lane";//Address
         	data[8]="8";//referral number
         	data[9]="$3.25";//giftcard balance
+        	data[10]="Nike";//Online Shopping location
   
 	}
 	public String getResponse(String input) {
@@ -75,6 +81,7 @@ public class Ai {
       	}
   
   		if(input.contains("where")){
+  			// SkipTheDish
               	for(int i=0; i< food.length; i++){
                   	if((input.contains(food[i]) || input.contains("driver") )&& (input.contains("going")||input.contains("headed"))){
                         	out+=("Your order is headed to " + data[7] + ".");
@@ -86,6 +93,22 @@ public class Ai {
                           	break;
                         } else if(input.contains(food[i]) || input.contains("driver")){
                         	out+=("Your order is currently at " + data[3] + ".");
+                          	isOutput=true;
+                          	break;
+                        }
+                  }
+              // Amazon
+              	for(int i=0; i< delivery.length; i++){
+                  	if((input.contains(delivery[i]) || input.contains("driver") )&& (input.contains("going")||input.contains("headed"))){
+                        	out+=("Your package is on route to " + data[7] + ".");
+                          	isOutput=true;
+                          	break;
+                  	}else if(input.contains(delivery[i]) && input.contains("from")){
+                        	out+=("Your package is from " + data[10] + ".");
+                          	isOutput=true;
+                          	break;
+                        } else if(input.contains(delivery[i]) || input.contains("driver")){
+                        	out+=("Your package is currently at " + data[3] + ".");
                           	isOutput=true;
                           	break;
                         }
@@ -115,8 +138,12 @@ public class Ai {
                           	out+=("You have referral count of " + data[8] + ".");
                           	isOutput=true;
                         }
+                  }else if(input.contains("brand")) {
+                	  out+=("Your delivery is from " + data[10] + ".");
+                    	isOutput=true;
                   }
             }else if(input.contains("when")){
+            	// SkipTheDish
             	for(int i=0; i<food.length; i++) {
             		if(input.contains(food[i]) || input.contains("driver")){
                         	out+="Your food will be coming shortly";
@@ -124,13 +151,29 @@ public class Ai {
                           	break;
                      	}
             	}
+            	// Amazon
+            	for(int i=0; i<delivery.length; i++) {
+            		if(input.contains(delivery[i]) || input.contains("driver")){
+                        	out+="Your package will be arriving soon";
+                        	isOutput=true;
+                          	break;
+                     	}
+            	}
       	}else if(input.contains("how")){
               	if(input.contains("tip") && input.contains("should")){
+              		if(input.contains("skip")) {
                     	out+=("Your driver takes 100% of the delivery fee and tip. It depends on how much you would like to tip.");
-                    	isOutput=true;
+              		}else {
+                    	out+=("UPS drivers will not accept tips.");
+              		}
+                	isOutput=true;
+
                   }else if(input.contains("tip")){
                     	out+=("You tipped your driver " + data[6] + ".");
                     	isOutput=true;
+                  }else if(input.contains("far") && input.contains("ship")){
+                  	out+=("We ship anywhere around the globe, The delivery fee differs depending on the location.");
+                    isOutput=true;
                   }else if(input.contains("far")){
                     	out+=("We deliver in 10km radius of the store, The delivery fee differs depending on the location.");
                         isOutput=true;
@@ -175,7 +218,7 @@ public class Ai {
             }
         	if(input.contains("apply") || input.contains("business")){ 
             	if(input.contains("hire") || input.contains("become a driver")){
-              		out+=("You can apply for a position in our YeetTheDishes team here! https://google.com");
+              		out+=("You can apply for a position in our wonderful team here! https://google.com");
               		isOutput=true;
                   }else if(input.contains("my")){
                   	if(input.contains("restaurant") || input.contains("local") || input.contains("family restaurant") || input.contains("family business")){
@@ -188,6 +231,9 @@ public class Ai {
               	if(input.contains("restaurant") || (input.contains("store"))){
                     	out+=("You can rate the restaurant you just ordered from here!");
                     	isOutput=true;
+              	}else if(input.contains("company") || input.contains("seller")) {
+              		out+=("You can rate the company you just ordered from here!");
+                	isOutput=true;
                   }else if(input.contains("driver")){
                         out=("You can rate the driver here!");
                         isOutput=true;
@@ -213,9 +259,14 @@ public class Ai {
               	isOutput=true;
             }
   		
+  		if(out.length() == 24) {
+  			out+=" ";
+  		}
+  		
 		if(!isOutput){
             	out="Sorry I don't understand your question.";
             }
+		System.out.println(out.length());
 		return out;	
       }
   
