@@ -41,6 +41,13 @@ public class Ai {
         "representative",
         "agent"
       };
+  	private String[] sports={
+  	        "baseball",
+  	        "basketball",
+  	        "football",
+  	        "soccer",
+  	        "sports"
+  	      };
   
 
 	
@@ -263,10 +270,25 @@ public class Ai {
   			out+=" ";
   		}
   		
-		if(!isOutput){
-            	out="Sorry I don't understand your question.";
-            }
-		System.out.println(out.length());
+  		// Outside bot focus
+  		if(input.contains("sports") || input.contains("play")) {
+          	out=("Sorry, I don't know much about sports.");
+          	isOutput=true;
+  		}else if(input.contains("games")) {
+  			out=("Sorry, I don't know much about games.");
+          	isOutput=true;
+  		}else if(input.contains("history")) {
+  			out=("Sorry, I don't know much about history.");
+  			isOutput=true;
+  		}else if(input.contains("song") || input.contains("music")) {
+  			out=("Sorry, I don't know much about music.");
+  			isOutput=true;
+  		}else if(input.isEmpty()){
+            out="Please ask a question.";
+        }else if(!isOutput){
+        	out="Sorry I don't understand your question.";
+        }
+  		
 		return out;	
       }
   
