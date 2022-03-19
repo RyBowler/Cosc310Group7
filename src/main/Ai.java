@@ -1,14 +1,15 @@
 package main;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
  
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.tokenize.Tokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
+
+import opennlp.tools.langdetect.*;
+import opennlp.tools.lemmatizer.DictionaryLemmatizer;
 
 public class Ai {
   	private String out;
@@ -120,10 +121,29 @@ public class Ai {
                 String tags[] = posTagger.tag(tokens);
                 // Getting the probabilities of the tags given to the tokens
                 double probs[] = posTagger.probs();
+                InputStream dictLemmatizer = new FileInputStream("src/main/en-lemmatizer.dict");
+                DictionaryLemmatizer lemmatizer = new DictionaryLemmatizer(dictLemmatizer);
+                for(int i=0; i<tags.length; i++) {
+                	if(tags[i].contentEquals("NOUN")) {
+                		tags[i]="NN";
+                	}else if(tags[i].contentEquals("ADV")) {
+                		//tags[i]="NN";
+                	}else if(tags[i].contentEquals("ADJ")) {
+                		tags[i]="JJ";
+                	}
+                }
+                String[] lemmas = lemmatizer.lemmatize(tokens, tags);
+                
                  
                 System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
                 for(int i=0;i<tokens.length;i++){
                     System.out.println(tokens[i]+"\t:\t"+tags[i]+"\t:\t"+probs[i]);
+                }
+                
+                System.out.println("\nPrinting lemmas for the given sentence...");
+                System.out.println("WORD -POSTAG : LEMMA");
+                for(int i=0;i< tokens.length;i++){
+                    System.out.println(tokens[i]+" -"+tags[i]+" : "+lemmas[i]);
                 }
                  
             }
