@@ -1,5 +1,5 @@
 # Cosc310Group7
-##Yeet the dishes chat bot
+## Yeet the dishes chat bot
 There is now a basic GUI that has a menu system as well as chat screen.
 The chat bot also provides, in the console, data of messages sent.
 
