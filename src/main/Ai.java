@@ -127,7 +127,7 @@ public class Ai {
                 	if(tags[i].contentEquals("NOUN")) {
                 		tags[i]="NN";
                 	}else if(tags[i].contentEquals("ADV")) {
-                		//tags[i]="NN";
+                		tags[i]="RB";
                 	}else if(tags[i].contentEquals("ADJ")) {
                 		tags[i]="JJ";
                 	}
