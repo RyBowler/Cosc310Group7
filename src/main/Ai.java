@@ -130,6 +130,30 @@ public class Ai {
                 		tags[i]="RB";
                 	}else if(tags[i].contentEquals("ADJ")) {
                 		tags[i]="JJ";
+                	}else if(tags[i].contentEquals("CCONJ")) {
+                		tags[i]="CC";
+                	}else if(tags[i].contentEquals("NUM")) {
+                		tags[i]="CD";
+                	}else if(tags[i].contentEquals("PRON")) {
+                		tags[i]="PRP";
+                	}else if(tags[i].contentEquals("AUX")) {
+                		tags[i]="MD";
+                	}else if(tags[i].contentEquals("ADP")) {
+                		tags[i]="RP";
+                	}else if(tags[i].contentEquals("SCONJ")) {
+                		tags[i]="IN";
+                	}else if(tags[i].contentEquals("PUNCT")) {
+                		tags[i]="PTB";
+                	}else if(tags[i].contentEquals("PROPN")) {
+                		tags[i]="NNP";
+                	}else if(tags[i].contentEquals("PART")) {
+                		tags[i]="RP";
+                	}else if(tags[i].contentEquals("INTJ")) {
+                		tags[i]="UH";
+                	}else if(tags[i].contentEquals("DET")) {
+                		tags[i]="DT";
+                	}else if(tags[i].contentEquals("X")) {
+                		tags[i]="FW";
                 	}
                 }
                 String[] lemmas = lemmatizer.lemmatize(tokens, tags);

@@ -62,7 +62,7 @@ public class Gui extends JFrame{
 						}
 						if(mode[0].equals("Mode1")&&input.length()<max) {
 							char c = ke.getKeyChar();
-							if(Character.isLetter(c)) {
+							if(Character.isLetterOrDigit(c)) {
 								input=input+c;
 							}
 				        }
