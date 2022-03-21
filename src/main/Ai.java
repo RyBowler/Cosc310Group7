@@ -109,6 +109,8 @@ public class Ai {
                 TokenizerModel tokenModel = new TokenizerModel(tokenModelIn);
                 Tokenizer tokenizer = new TokenizerME(tokenModel);
                 String tokens[] = tokenizer.tokenize(sentence);
+                // Necessary for token tests
+                getToken(tokens);
      
                 // Parts-Of-Speech Tagging
                 // reading parts-of-speech model to a stream 
@@ -377,6 +379,10 @@ public class Ai {
   	private String cleanInput(String input){
         	String out=input.toLowerCase();
       	return out;
-      }
+    }
+  	
+  	public String[] getToken(String[] toks){
+  		return toks;
+  	}
 
 }
