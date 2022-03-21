@@ -38,7 +38,7 @@ User: When is my food coming?
 Bot: Your food will be coming shortly.
 
 User: How much should I tip to skip driver?
-Bot: Your driver takes 100% of the delivery fee and tip. It depeends on how much you would like to tip.
+Bot: Your driver takes 100% of the delivery fee and tip. It depends on how much you would like to tip.
 
 User: Do you enjoy music?
 Bot: Sorry, I don't know much about music.
