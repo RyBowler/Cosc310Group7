@@ -12,7 +12,7 @@ public class Start implements Runnable{
 	public static void main(String[] args) {
 		Start app=new Start();
 		app.start();
-		testTokenization();
+		
 	}
 	
 	private void start() {
@@ -71,4 +71,6 @@ public class Start implements Runnable{
 	private void update() {
 		window.update();
 	}
+	
+	
 }

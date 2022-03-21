@@ -14,7 +14,10 @@ import opennlp.tools.lemmatizer.DictionaryLemmatizer;
 public class Ai {
   	private String out;
   	private String[] data;
-  
+  	private String[] getTokenizer;
+  	private String[] getPOStagger;
+  	private String[] getLemmatizer;
+  	
   	//KEYWORDS
   	private String[] greetings={
             	"hi",
@@ -110,7 +113,7 @@ public class Ai {
                 Tokenizer tokenizer = new TokenizerME(tokenModel);
                 String tokens[] = tokenizer.tokenize(sentence);
                 // Necessary for token tests
-                getToken(tokens);
+                getTokenizer = tokens;
      
                 // Parts-Of-Speech Tagging
                 // reading parts-of-speech model to a stream 
@@ -121,12 +124,15 @@ public class Ai {
                 POSTaggerME posTagger = new POSTaggerME(posModel);
                 // Tagger tagging the tokens
                 String tags[] = posTagger.tag(tokens);
+                getPOStagger = tags;
                 // Getting the probabilities of the tags given to the tokens
                 double probs[] = posTagger.probs();
                 InputStream dictLemmatizer = new FileInputStream("src/main/en-lemmatizer.dict");
                 DictionaryLemmatizer lemmatizer = new DictionaryLemmatizer(dictLemmatizer);
                 String[] lemmas = lemmatizer.lemmatize(tokens, tags);
-                
+                // Necessary for Lemmatization tests
+                getLemmatizer = tokens;
+
                  
                 System.out.println("Token\t:\tTag\t:\tProbability\n---------------------------------------------");
                 for(int i=0;i<tokens.length;i++){
@@ -381,8 +387,18 @@ public class Ai {
       	return out;
     }
   	
-  	public String[] getToken(String[] toks){
-  		return toks;
+  	public String[] getToken(){
+  		return getTokenizer;
   	}
+  	
+  	public String[] getPOStag(){
+  		return getPOStagger;
+  	}
+  	
+  	public String[] getLemmatization(){
+  		return getLemmatizer;
+  	}
+  	
+  	
 
 }
