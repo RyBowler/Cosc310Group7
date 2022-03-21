@@ -76,9 +76,9 @@ Bot: You are able to purchase a gift card for your loved ones at at https://www.
 ## Short conversations when bot is not able to handle the conversation properly.
 
 ### Conversation 1
-User: Do you like history?
+User: Do you like history?<br/>
 Bot: Sorry, I don't know much about history
 
 ### Conversation 2
-User: Do you enjoy playing games?
+User: Do you enjoy playing games?<br/>
 Bot: Sorry, I don't know much about sports
