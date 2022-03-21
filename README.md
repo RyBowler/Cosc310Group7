@@ -72,3 +72,13 @@ Bot: You can use our website to change your password by clicking FORGOT PASSWORD
 
 User: How do I purchase a gift card?<br/>
 Bot: You are able to purchase a gift card for your loved ones at at https://www.google.com/
+
+## Short conversations when bot is not able to handle the conversation properly.
+
+### Conversation 1
+User: Do you like history?
+Bot: Sorry, I don't know much about history
+
+### Conversation 2
+User: Do you enjoy playing games?
+Bot: Sorry, I don't know much about sports
