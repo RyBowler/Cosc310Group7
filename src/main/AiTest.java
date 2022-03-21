@@ -6,7 +6,7 @@ import org.junit.Assert;
 import org.junit.Test;
 
 
-class AiTest {
+public class AiTest {
 	
 	private Ai testAi;
 	
@@ -17,8 +17,6 @@ class AiTest {
 		
 
 	}
-	
-	
 	//The test is designed 
 	@Test
 	public void testTokenization() {
@@ -28,7 +26,8 @@ class AiTest {
 	}
 	@Test
 	public void testPOStagging() {
-		testAi.getResponse("Where is my order located at right now?");
+		
+		String test1 = testAi.getResponse("Where is my order located at right now?");
 		String premade[] = {"WRB","VBZ","PRP$","NN","VBD","IN","RB","RB","."};
 		Assert.assertArrayEquals(premade,testAi.getPOStag());
 	}
