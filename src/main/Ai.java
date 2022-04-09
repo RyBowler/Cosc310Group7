@@ -1,7 +1,17 @@
 package main;
 
+import java.util.Map;
+import java.util.List;
 import java.io.*;
- 
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
+
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import opennlp.tools.postag.POSModel;
 import opennlp.tools.postag.POSTaggerME;
 import opennlp.tools.tokenize.Tokenizer;
@@ -87,8 +97,48 @@ public class Ai {
 		Purpose: takes a users input and corresponds with an appropriate response
 		Input: input, A String that takes user input
 		Output: output, A String that takes
-         */
+         */		
         	input=cleanInput(input);
+        	
+        	//==================================================================
+        	HttpURLConnection connection = null;
+        	try {
+	        	URL url = new URL("https://www.googleapis.com/language/translate/v2?key=AIzaSyD1Ff9zdKttkZD7LUjUI_gDQaBKq7vLldQ&source=es&target=en&q=" + URLEncoder.encode(input, StandardCharsets.UTF_8));
+	        	connection = (HttpURLConnection) url.openConnection();
+	        	if(connection.getResponseCode() != 200) {
+	        		System.out.println("Kaboom!");
+	        	}
+	        	InputStream inStream = connection.getInputStream();
+	        	StringBuilder result = new StringBuilder();
+	        	BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+	        	String line = reader.readLine();
+	        	while(line != null) {
+	        		result.append(line).append("\n"); 
+	        		line = reader.readLine();
+	        	}
+//	        	System.out.println(result.toString());
+	        
+	        	HashMap<String, Object> map = new HashMap<String, Object>();	            
+	            ObjectMapper mapper = new ObjectMapper();
+	              //Convert Map to JSON
+	              map = mapper.readValue(result.toString(), new TypeReference<HashMap<String, Object>>(){});
+	              Map<String,Map> dataLayer = (Map<String,Map>)map.get("data");
+	              List translations = (List)dataLayer.get("translations");
+	              Map translatedText = (Map)translations.get(0);
+	              String text = (String)translatedText.get("translatedText");
+//	              System.out.println(text);
+	              input = text;
+        	}
+        	catch( IOException e ) {
+        		e.printStackTrace();
+        	} finally {
+        		if (connection != null) {
+        			connection.disconnect();
+        		}
+        	}
+        	
+        	//==================================================================
+        	
        	out ="";     
         	boolean isOutput=false;
         	if(input.contains("exit")){
