@@ -76,20 +76,21 @@ public class Ai {
 
 	
 	public Ai() {   
-      	data=new String[11];
+      	data=new String[12];
         
 		// DATA  of the order
         	data[0]="Muhammad McLovin";//drivers name
         	data[1]="McWendy's";//Food location
         	data[2]="911-XXX-XXXX";//Store number;
-        	data[3]="107 street";//Driver Location
+        	data[3]="Disneyland";//Driver Location
             data[4]="9X0 X69";//Drivers license plate number
         	data[5]="$15.99";//Amount Charged
         	data[6]="$2.00";//tip
-        	data[7]="3192 Lower Residence Lane";//Address
+        	data[7]="Universal+Studios+Hollywood";//Address
         	data[8]="8";//referral number
         	data[9]="$3.25";//giftcard balance
         	data[10]="Nike";//Online Shopping location
+        	data[11]="0 mins";//Time to delivery
   
 	}
 	public String getResponse(String input) {
@@ -100,7 +101,7 @@ public class Ai {
          */		
         	input=cleanInput(input);
         	
-        	//==================================================================
+        	//====================== Google Translate API ============================
         	HttpURLConnection connection = null;
         	try {
 	        	URL url = new URL("https://www.googleapis.com/language/translate/v2?key=AIzaSyD1Ff9zdKttkZD7LUjUI_gDQaBKq7vLldQ&source=es&target=en&q=" + URLEncoder.encode(input, StandardCharsets.UTF_8));
@@ -120,7 +121,7 @@ public class Ai {
 	        
 	        	HashMap<String, Object> map = new HashMap<String, Object>();	            
 	            ObjectMapper mapper = new ObjectMapper();
-	              //Convert Map to JSON
+	              // Convert Map to JSON
 	              map = mapper.readValue(result.toString(), new TypeReference<HashMap<String, Object>>(){});
 	              Map<String,Map> dataLayer = (Map<String,Map>)map.get("data");
 	              List translations = (List)dataLayer.get("translations");
@@ -137,7 +138,45 @@ public class Ai {
         		}
         	}
         	
-        	//==================================================================
+        	//======================= Google Directions API =============================
+        	//"https://maps.googleapis.com/maps/api/directions/json?origin=Disneyland&destination=Universal+Studios+Hollywood&key=AIzaSyD1Ff9zdKttkZD7LUjUI_gDQaBKq7vLldQ"
+        	try {
+	        	URL url = new URL("https://maps.googleapis.com/maps/api/directions/json?origin=" + URLEncoder.encode(data[3], StandardCharsets.UTF_8) + "&destination=" + URLEncoder.encode(data[7], StandardCharsets.UTF_8) + "&key=AIzaSyD1Ff9zdKttkZD7LUjUI_gDQaBKq7vLldQ");
+        		connection = (HttpURLConnection) url.openConnection();
+	        	if(connection.getResponseCode() != 200) {
+	        		System.out.println("Kaboom!");
+	        	}
+	        	InputStream inStream = connection.getInputStream();
+	        	StringBuilder result = new StringBuilder();
+	        	BufferedReader reader = new BufferedReader(new InputStreamReader(inStream));
+	        	String line = reader.readLine();
+	        	while(line != null) {
+	        		result.append(line).append("\n"); 
+	        		line = reader.readLine();
+	        	}
+//	        	System.out.println(result.toString());
+	        
+	        	HashMap<String, Object> map = new HashMap<String, Object>();	            
+	            ObjectMapper mapper = new ObjectMapper();
+	              // Convert Map to JSON
+	              map = mapper.readValue(result.toString(), new TypeReference<HashMap<String, Object>>(){});
+	              List routeLayer = (List)map.get("routes");
+	              Map stuff = (Map)routeLayer.get(0);
+	              List legs = (List)stuff.get("legs");
+	              Map leg = (Map)legs.get(0);
+	              Map duration = (Map)leg.get("duration");
+	              String durationText = (String)duration.get("text");
+//	              System.out.println(durationText);
+	              data[11] = durationText;
+        	}
+        	catch( IOException e ) {
+        		e.printStackTrace();
+        	} finally {
+        		if (connection != null) {
+        			connection.disconnect();
+        		}
+        	}
+        	//===========================================================================
         	
        	out ="";     
         	boolean isOutput=false;
@@ -293,7 +332,7 @@ public class Ai {
             	// SkipTheDish
             	for(int i=0; i<food.length; i++) {
             		if(input.contains(food[i]) || input.contains("driver")){
-                        	out+="Your food will be coming shortly";
+                        	out+="Your food will be arriving in " + data[11];
                         	isOutput=true;
                           	break;
                      	}
