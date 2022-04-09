@@ -82,11 +82,11 @@ public class Ai {
         	data[0]="Muhammad McLovin";//drivers name
         	data[1]="McWendy's";//Food location
         	data[2]="911-XXX-XXXX";//Store number;
-        	data[3]="Disneyland";//Driver Location
+        	data[3]="520 Kelowna Rock Creek Hwy, Highway 33 West, Kelowna";//Driver Location
             data[4]="9X0 X69";//Drivers license plate number
         	data[5]="$15.99";//Amount Charged
         	data[6]="$2.00";//tip
-        	data[7]="Universal+Studios+Hollywood";//Address
+        	data[7]="3333 University Way, Kelowna";//Address
         	data[8]="8";//referral number
         	data[9]="$3.25";//giftcard balance
         	data[10]="Nike";//Online Shopping location
