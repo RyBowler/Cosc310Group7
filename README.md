@@ -36,3 +36,8 @@ is -VBZ : be
 my -PRP$ : my
 food -NN : food
 ? -. : O
+
+## API's
+**Google Cloud Translation:** Enables the AI to understand questions asked in Spanish. Responses are still in English.
+
+**Google Directions:** Enables the AI to determine how long the delivery will take to reach the user.
